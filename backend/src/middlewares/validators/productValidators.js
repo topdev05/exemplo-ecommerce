@@ -13,7 +13,7 @@ module.exports = {
             description: Joi.string().required(),
             price: Joi.number().required(),
             quantity: Joi.number().required(),
-            category: Joi.string(),
+            category_id: Joi.number().required(),
             discount_percent: Joi.number()
         })
     }),
@@ -29,7 +29,7 @@ module.exports = {
             description: Joi.string(),
             price: Joi.number(),
             quantity: Joi.number(),
-            category: Joi.string(),
+            category_id: Joi.number(),
             discount_percent: Joi.number()
         })
     }),
