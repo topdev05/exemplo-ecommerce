@@ -57,30 +57,32 @@ describe('addressController List Test Suit', () => {
         
 
         const response = await supertest(app).get(`/addresses`)
-            .set('authorization', 'Bearer ' + token);
+            .set('authorization', 'Bearer ' + token)
+        ;
         
         expect(response.status).toBe(200);
         expect(response.body.length).toBe(3);
         expect(response.body[0].userId).toBe(user.id);
     });
 
-    it('should return code 400 for "authorization is required"', async () => {
+    it('should return error for "authorization is required"', async () => {
 
-        const response = await supertest(app).get(`/addresses`)
+        const response = await supertest(app).get(`/addresses`);
         
         expect(response.status).toBe(400);
         expect(response.body.validation.headers.message).toBe("\"authorization\" is required");
     });
 
-    it('should return code 400 for "user not found"', async () => {
+    it('should return error for "user not found"', async () => {
 
         const user = UserModel.create(fakeUser);
         const token = user.generateJwt();
         
         const response = await supertest(app).get(`/addresses`)
-            .set('authorization', 'Bearer ' + token);
+            .set('authorization', 'Bearer ' + token)
+        ;
 
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(404);
         expect(response.body.message).toBe("user not found");
     });
 });
